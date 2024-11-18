@@ -6,12 +6,18 @@ jobs:
         steps:
         - name: Checkout repo
           uses: actions/checkout@v4
-        - name: Welcome message
-          run: echo "My first Github Actions Job"        
-        - name: List files
-          run: ls
-        - name: Read file
-          run: cat README.md
+        - name: List and Read files
+          run: |
+               echo "My first Github Actions Job" 
+               ls -ltra
+               cat README.md   
+        - name: Generate ASCII Artwork
+        #cowsay es una libreria de tercero utilizada para generar ascii artwork
+          run: cowsay -f dragon "Run for cover, I am a DRAGON .... RAWR" >> dragon.txt       
+        # - name: List files
+        #   run: ls
+        # - name: Read file
+        #   run: cat README.md
         
 
 
