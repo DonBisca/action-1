@@ -28,7 +28,7 @@ jobs:
         name: dragon-text-file
         path: dragon.txt
     - name: Test file exists
-      run: cat dragon.txt
+      run: ls dragon.txt
   deploy_job_3:
     needs: [test_job_2]
     runs-on: ubuntu-latest
