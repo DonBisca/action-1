@@ -9,7 +9,7 @@ jobs:
     steps:
     - name: Install Cowsay Program
       run: sudo apt-get install cowsay -y
-
+      
     - name: Execute Cowsay CMD
       run: cowsay -f dragon "Run for cover, I am a DRAGON .... RAWR" >> dragon.txt
 
@@ -28,7 +28,7 @@ jobs:
         name: dragon-text-file
         path: dragon.txt
     - name: Test file exists
-      run: ls dragon.txt
+      run: grep -i "dragon" dragon.txt/dragon.txt
   deploy_job_3:
     needs: [test_job_2]
     runs-on: ubuntu-latest
@@ -39,7 +39,7 @@ jobs:
           name: dragon-text-file
           path: dragon.txt
       - name: Read File
-        run: cat dragon.txt
+        run: cat dragon.txt/dragon.txt
       - name: Deploy
         run: echo Deploying ... .. .
 
