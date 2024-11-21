@@ -26,9 +26,21 @@ jobs:
     # con matrix es asi
     deploy:
         strategy:
+            # en true cancela cualquier job que este corriendo o este en cola cuando un job falla
+          fail-fast: false
+        #   controla el numero de jobs que se ejecutan en paralelo en este caso 2 solmente a pesar de que podrian ejecutarse 6
+          max-parallel: 2
           matrix:
             os: [ubuntu-latest, ubuntu-20.04, windows-latest]
             images: [hello-world, alpine]
+            # con esto se le dice q exluya la ejecucion de la imagen alpine en los os windows-latest
+            exclude:
+              - images: alpine
+                os: windows-latest
+            # con esto se le dice que corra esa imagen solamente en ese os
+            include:
+              - images: amd64/alpine
+                os: ubuntu-20.04
         runs-on: ${{ matrix.os }}
         steps:
             - name: Echo Docker Details
