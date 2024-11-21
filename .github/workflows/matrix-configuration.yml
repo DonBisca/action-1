@@ -5,20 +5,35 @@ on:
     workflow_dispatch: 
 
 jobs:
-    deploy-on-ubuntu:
-        runs-on: ubuntu-latest
+    # sin matrix se haría asi
+    # deploy-on-ubuntu:
+    #     runs-on: ubuntu-latest
+    #     steps:
+    #         - name: Echo Docker Details
+    #           run: docker info
+
+    #         - name: Run Images
+    #           run: docker run hello-world
+
+    # deploy-on-windows:
+    #     runs-on: windows-latest
+    #     steps:
+    #       - name: Echo Docker details
+    #         run: docker info
+
+    #       - name: Run Images
+    #         run: docker run hello-world  
+    # con matrix es asi
+    deploy:
+        strategy:
+          matrix:
+            os: [ubuntu-latest, ubuntu-20.0.4, windows-talest]
+            images: [hello-world, alpine]
+        runs-on: ${{ matrix.os }}
         steps:
             - name: Echo Docker Details
               run: docker info
 
-            - name: Run Images
-              run: docker run hello-world
-
-    deploy-on-windows:
-        runs-on: windows-latest
-        steps:
-          - name: Echo Docker details
-            run: docker info
-
-          - name: Run Images
-            run: docker run hello-world         
+            - name: Run Images on ${{ matrix.images }}
+              run: docker run ${{ matrix.images }}
+        
