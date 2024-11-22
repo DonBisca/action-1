@@ -1,0 +1,27 @@
+name: Workflow filters and Activities
+on: 
+    workflow_dispatch: 
+    schedule:
+        - cron: "*/59 * * * *"
+    push: 
+        # branches-ignore: # se excluiran estas ramas
+        #     - feature/* #feature/add-music
+        #     - test/** # test/ui/index
+        branches: 
+            - main
+            - '!feature/*' #ignoring pushing to any branch name starting with feature using !
+    pull_request: # el workflow se disparara en pr que sean abiertas o cerradas
+        types: 
+            - opened
+            - closed
+        paths-ignore: 
+            - README.md # cualquier cambio que incluya solamente a este fichero no disparara el workflow
+        branches: 
+            - main
+jobs:
+    hello:
+        runs-on: ubuntu-latest
+        steps:
+            - run: echo this workflow/job/step is executed for event type - ${{ github.event_name }}
+
+    
